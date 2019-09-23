@@ -6,6 +6,7 @@ function Manager() {
     this.runner = new Runner(canvas, 10, conf.horizonHeght, 64, 52);
     this.isLost = false;
     this.score = 0;
+    this.runnerInterval = 0
 }
 
 Manager.prototype = {
@@ -120,6 +121,7 @@ Runner.prototype = {
                 clearInterval(interval);
             }
         }, 1);
+        manager.runnerInterval = interval;
     }
 };
 
@@ -149,6 +151,7 @@ SeaWeed.prototype = {
                     manager.isLost = true;
                     //that.runner.render();
                     clearInterval(interval);
+                    clearInterval(manager.runnerInterval);
                     manager.fail();
                     return;
                 }
