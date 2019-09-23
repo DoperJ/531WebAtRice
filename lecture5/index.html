@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="wrapper" style="position: relative;"><button id="btn">Click Me</button></div>
+</body>
+<script>
+    window.onload = function (ev) {
+        var win = false;
+        var button = document.getElementById('btn');
+        var wrapper = document.getElementById('wrapper');
+        function move() {
+            var width = document.body.clientWidth;
+            var height = document.body.clientHeight;
+            console.log(width);
+            if (!win && !window.event.shiftKey) {
+                console.log(height);
+                //wrapper.style.left = parseInt(width * Math.random()) + "px";
+                wrapper.style.top = parseInt(height * Math.random()) + "px";
+            }
+        }
+        function gameWin() {
+            console.log("inside clicked");
+            if (!win) {
+                button.innerText = "You won! Play Again";
+                win = true;
+            } else {
+                button.innerText = "Click Me";
+                win = false;
+            }
+        }
+        wrapper.addEventListener('mouseover', move, false);
+        button.addEventListener('click', gameWin, false);
+    }
+</script>
+</html>

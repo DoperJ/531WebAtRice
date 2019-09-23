@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Zequn Jiang">
+    <title>Result Page</title>
+    <style>
+        table {
+            background-color: black;
+            color: white;
+            width: 500px;
+            margin: 0 auto;
+/*            border: 1px solid blue;*/
+        }
+        th {
+            border: 1px solid wheat;
+        }
+        td {
+            border: 1px solid wheat;
+            text-align: center;
+        }
+        caption {
+            background-color: gray;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<table id="my-table" border="1">
+    <caption><h3>Processed Form</h3></caption>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody id="tb-body">
+    </tbody>
+</table>
+<script>
+    let str = window.location.search;
+    str = str.substr(1, Math.max(str.lastIndexOf("#"), str.length));
+    let splitStr = str.split("&");
+    //console.log(splitStr);
+    let keys = [], values = [];
+    console.log(splitStr);
+    for (let i = 0; i < splitStr.length; i++) {
+        let par = splitStr[i].split("=");
+        par[0] = decodeURIComponent(par[0]);
+        par[1] = decodeURIComponent(par[1]);
+        //keys.push(unescape(par[0]));
+        //values.push(unescape(par[1]));
+        let row = document.createElement("tr");
+        let keyElement = document.createElement("td");
+        keyElement.innerText = par[0].replace(/-|_/g, ' ');
+        let valueElement = document.createElement("td");
+        //console.log(par[0] + ": " + par[1]);
+        if (!par[1]) {
+            let defaultText = document.createElement("em");
+            defaultText.style.setProperty("color", "red");
+            defaultText.innerText = "unprovided";
+            valueElement.appendChild(defaultText);
+        } else if (par[0] == "password") {
+            valueElement.innerText = par[1].replace(/./g, '*');
+        } else if (par[0] == "timestamp") {
+            let date = new Date(+par[1]);
+            valueElement.innerText = date.toLocaleString();
+        } else {
+            valueElement.innerText = par[1];
+        }
+        row.appendChild(keyElement);
+        row.appendChild(valueElement);
+        document.getElementById("tb-body").appendChild(row);
+    }
+
+</script>
+</body>
+</html>

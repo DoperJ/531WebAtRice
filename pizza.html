@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza Order</title>
+    <style>
+        .require-sign {
+            color: orangered;
+        }
+    </style>
+</head>
+<body>
+<h3>Pizza Guys Order Form</h3>
+<form method="post" action="#">
+    <b>Name:</b> <input id="1" type="text" placeholder="Input your name." required/> <span class="require-sign">*</span><br/>
+    <b>Address:</b> <input id="2" type="text" placeholder="Input your address." required/> <span class="require-sign"></span><br/>
+    <b>Phone Number:</b> <input id="3" type="text" placeholder="Input your phone number." required/> <span class="require-sign">*</span><br/>
+    <b>Pizza Size:</b>
+    <input type="checkbox" name="size1" value="Large"/> Large
+    <input type="checkbox" name="size2" value="Medium"/> Medium
+    <input type="checkbox" name="size3" value="Small"/> Small
+    <br/>
+    <b>Pizza Toppings:</b>
+    <input type="checkbox" name="topping1" value="Sausage"/> Sausage
+    <input type="checkbox" name="topping2" value="Popcorn"/> Popcorn
+    <input type="checkbox" name="topping3" value="Olives"/> Olives
+    <input type="checkbox" name="topping4" value="Anchovies"/> Anchovies
+    <input type="checkbox" name="topping5" value="Onions"/> Onions
+    <br/>
+    <input type="submit" value="Place Order">
+    <input type="reset" value="Clear">
+</form>
+</body>
+</html>

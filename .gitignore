@@ -1,0 +1,7 @@
+*.xml
+*/.idea
+*.log
+*.apk
+*.swp
+**/.git
+/.idea

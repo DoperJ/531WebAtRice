@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Union Find Test Page</title>
+</head>
+<body>
+<div>
+    <p id="pa"></p>
+</div>
+<script>
+    class UF {
+        constructor(n) {
+            this.id = new Array(n);
+            this.size = new Array(n);
+            this.height = new Array(n);
+            for (let i = 0; i < n; i++) {
+                this.id[i] = i;
+                this.size[i] = 1;
+                this.height[i] = 1;
+            }
+        }
+        root(i) {
+            while (i != this.id[i]) {
+                //this.id[i] = this.id[this.id[i]];
+                i = this.id[i];
+            }
+            return i;
+        }
+        union(i, j) {
+            let root_i = this.root(i);
+            let root_j = this.root(j);
+            if (this.size[root_i] < this.size[root_j] || (this.size[root_i] == this.size[root_j] && root_i > root_j)) {
+                this.id[root_i] = root_j;
+                this.size[root_j] += this.id[root_i];
+            } else {
+                this.id[root_j] = root_i;
+                this.size[root_i] += this.size[root_j];
+            }
+/*            if (this.height[root_i] == this.height[root_j]) {
+                if (root_i < root_j) {
+                    this.id[root_j] = root_i;
+                    this.height[root_i]++;
+                } else {
+                    this.id[root_i] = root_j;
+                    this.height[root_j]++;
+                }
+            } else if (this.height[root_i] > this.height[root_j]) {
+                this.id[root_j] = root_i;
+            } else {
+                this.id[root_i] = root_j;
+            }*/
+        }
+        find(i, j) {
+            return this.root(i) === this.root(j);
+        }
+    }
+    window.onload = () => {
+        let uf = new UF(13);
+        uf.union(1, 2);
+        uf.union(3, 4);
+        uf.union(3, 5);
+        uf.union(1, 7);
+        uf.union(3, 12);
+        uf.union(0, 9);
+        uf.union(8, 10);
+        uf.union(8, 9);
+        console.log(uf.id);
+        uf.union(7, 4);
+        console.log(uf.id);
+        uf.union(2, 9);
+        document.getElementById("pa").innerText = uf.id;
+    };
+</script>
+</body>
+</html>

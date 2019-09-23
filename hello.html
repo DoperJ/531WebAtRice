@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zequn Jiang's Webpage</title>
+    <style>
+        img {
+            align-content: center;
+            flex-grow: 0;
+        }
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        #wrapper {
+            padding: 10px 50px 10px 50px;
+        }
+        #comment-box {
+            height: 100px; width: 700px
+        }
+        a:link {
+            text-decoration: none;
+            color: darkcyan;
+        }
+        a:visited {
+            text-decoration: none;
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <p>
+        <b>Full Name:</b> Zequn Jiang <br/>
+        <b>Github User Name:</b> DoperJZQ <br/>
+        <b>Some text about me:</b> Currently a Master of Computer Science Student at Rice University <br/>
+        <b>Full Name:</b> Zequn Jiang <br/>
+        <b>Websites:</b> <a href="https://www.linkedin.com/in/zequn-jiang-b6972415b/">LinkedIn</a>
+        <a href="https://google.com">Google</a>
+        <a href="https://www.apple.com/">Apple</a>
+    </p>
+    <img src="https://media.licdn.com/dms/image/C5603AQFSwX7CB3wq3w/profile-displayphoto-shrink_200_200/0?e=1572480000&v=beta&t=Md2CQ1fdYtwKLvYAI53BRuiLWLX-inE0FhnGnB6ZsUY"/>
+    <div>
+        <form>
+            <input id="comment-box" type="text" placeholder="write some comments here...">
+        </form>
+    </div>
+    <div>
+        <p>Count Down Clock:</p><span id="indicator">10</span>
+    </div>
+</div>
+<script>
+    window.onload = () => {
+        setInterval(() => {
+            let val = +document.getElementById("indicator").innerHTML;
+            console.log(val);
+            if (val === 0) {
+                window.location.href = "https://www.rice.edu";
+                return;
+            }
+            document.getElementById("indicator").innerHTML = val - 1;
+        }, 1000);
+        setTimeout(() => {alert("The page will redirect when the counter reaches zero!");}, 5000);
+    }
+</script>
+</body>
+</html>

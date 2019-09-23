@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Zequn Jiang">
+    <title>Register Page</title>
+    <!-- Website CSS style -->
+    <style>
+        img {
+            align-content: center;
+            flex-grow: 0;
+        }
+        div #wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        #wrapper {
+            padding: 10px 50px 10px 50px;
+        }
+        #form-wrapper {
+            width: 400px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form .button {
+            width: 100px;
+        }
+        .require-sign {
+            color: orangered;
+        }
+        h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="form-wrapper">
+        <h3>Please fill out this form to register.</h3>
+        <form method="get" action="formProcessor.html" onsubmit="return check(this)">
+            <b>Account Name<span class="require-sign">*</span>:</b> <input id="acc" type="text" name="account-name" placeholder="Your unique account name." pattern="^[a-zA-Z][a-zA-Z0-9]*$" required/>
+            <b>Display Name:</b> <input type="text" name="display-name" placeholder="Your name to be displayed."/>
+            <b>Email Address<span class="require-sign">*</span>:</b> <input id="email" type="email" name="email" placeholder="Your unique email address." required/>
+            <b>Phone Number<span class="require-sign">*</span>:</b> <input id="phone-num" type="text" name="phone-number" placeholder="Your unique phone number." pattern="^[1-9][0-9]{9}$" required/>
+            <b>Date of Birth<span class="require-sign">*</span>:</b> <input type="date" name="date_of_birth" required/>
+            <b>ZIP Code<span class="require-sign">*</span>:</b> <input id="zip" type="text" name="zip-code" placeholder="Your five-digit ZIP code." pattern="^[0-9]{5}$" required/>
+            <b>Password<span class="require-sign">*</span>:</b> <input type="password" name="password" placeholder="Your password." required/>
+            <b>Confirm Your Password<span class="require-sign">*</span>:</b> <input type="password" id="confirm-passwd" placeholder="Confirm your password." required/>
+            <input id="ts" type="hidden" value="" name="timestamp" />
+            <div>
+                <input class="button" type="submit" value="submit"/>
+                <input class="button" type="reset" value="clear"/>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function setTimeStamp() {
+        document.getElementById("ts").value = new Date().getTime();
+        //console.log("time stamp is: " + document.getElementById("ts").value);
+    }
+    function checkBirthDate(date) {
+        let today = new Date();
+        let yearDiff = today.getFullYear() - date.getFullYear();
+        let monthDiff = today.getMonth() - date.getMonth();
+        let dayDiff = today.getDate() - date.getDate();
+        //console.log("year diff: " + yearDiff);
+        if (yearDiff < 18) return false;
+        if (yearDiff > 18) return true;
+        if (monthDiff < 0) return false;
+        if (monthDiff > 0) return true;
+        //console.log("day diff: " + dayDiff);
+        if (dayDiff < 0) return false;
+        return true;
+    }
+    function checkPassword(passwd, confirmPwd) {
+        if (passwd) {
+            return passwd == confirmPwd;
+        }
+        return false;
+    }
+    function setValidity(input, rule) {
+        console.log("checking mismatch");
+        input.onkeyup = function () {
+            if (input.validity.patternMismatch) {
+                input.setCustomValidity(rule);
+            } else {
+                input.setCustomValidity("");
+            }
+        };
+    }
+    function check(form) {
+        //event.preventDefault();
+        if (!checkPassword(form.password.value, document.getElementById("confirm-passwd").value)) {
+            alert("Confirm your password!");
+            return false;
+        }
+        let birthDate = new Date(form.date_of_birth.value);
+        console.log("checking..." + birthDate);
+        if (!checkBirthDate(birthDate)) {
+            alert("You are too young to register!");
+            return false;
+        }
+        return true;
+    }
+    setValidity(document.getElementById("acc"), "Your account name may contain both letters and numbers or only letters, but may not start with a number.");
+    setValidity(document.getElementById("phone-num"), "Your phone number should be a ten-digit number.");
+    setValidity(document.getElementById("zip"), "Your zip code should be a five-digit number.");
+    window.onload = () => {setTimeStamp();};
+</script>
+</body>
+</html>

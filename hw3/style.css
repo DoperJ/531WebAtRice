@@ -1,0 +1,12 @@
+body {
+    background: wheat;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+canvas {
+    background: whitesmoke;
+    margin-top: 15%;
+    box-shadow: 5px 5px 50px grey;
+}
